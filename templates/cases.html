@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="legal advice web services for pro-bono cases">
+    <meta name="author" content="Warut, Kabir, Nathan, Chiranth, Naveed, Owen">
+
+    <title>law --less</title>
+
+      <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{url_for('static', filename='css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='css/cover.css')}}" rel="stylesheet">
+
+    <!-- Custom Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- CDN for AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- Google Icon Set -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Just for debugging purposes -->
+    <script src="{{url_for('static', filename='scripts/ie-emulation-modes-warning.js')}}"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='scripts/bootstrap.min.js')}}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{url_for('static', filename='scripts/ie10-viewport-bug-workaround.js')}}"></script>
+
+    <script src="{{url_for('static', filename='scripts/login.js')}}"></script>
+
+    <!-- JavaScript HTTP Request -->
+    <script src="{{url_for('static', filename='scripts/cases.js')}}"></script>
+
+    <!-- Bootstrap Dropzone JavaScript -->
+    <script src = "{{url_for('static', filename='scripts/dropzone-4.3.0/dist/dropzone.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='scripts/dropzone-4.3.0/dist/dropzone.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+
+  </head>
+
+  <body style="font-family: 'Roboto', sans-serif" background="{{url_for('static', filename='icons/background.png')}}">
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <a href="/">
+                <img src="{{url_for('static', filename='icons/logo.png')}}" width="40%" height="20%" alt="LL" id="logo">
+              </a>
+
+              <!-- Navigation toolbar for insite navigation -->
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li><a href="/">Home</a></li>
+                  <li class="active"><a href="#">Cases</a></li>
+                  <li><a href="features">Features</a></li>
+                  <li><a href="profile">User Profile</a></li>
+                  <li><a href="aboutus">About Us</a></li>
+                  <li><a href="sponsors">Sponsors</a></li>
+                </ul>
+                {% raw %}
+                <div style="position:absolute;top:90px;right:-50px;list-style-type:none;z-index:10;" ng-app="loginApp" ng-controller="loginCtrl">
+                  <div ng-hide="loginActive">
+                    <input type="button" class="btn btn-large" value="Log In" ng-click="login()">
+                    <input type="button" class="btn btn-large" value="Sign Up" ng-click="show_signup()">
+                  </div>
+                  <div ng-hide="!loginActive">
+                    <h6>Welcome, {{user.name}}
+                  </div>
+                  <div ng-show="showLoginWindow || showSignupWindow" class="blanket-ext"></div>
+                  <div ng-show="showLoginWindow" class="expand-ext">
+                    <i class="material-icons close-ext" ng-click="close_ext()">close</i>
+                    <h3>Log In</h3>
+                    <center>
+                      <h4 ng-show="showFailMessage" style="color:red">Your username or password is incorrect. Please try again.</h4>
+                      <h4>Username</h4><input id="username" type="text">
+                      </br>
+                      <h4>Password</h4><input id="password" type="password">
+                      </br>
+                      <input type="button" class="btn btn-large" ng-click="verify()" value="Confirm!">
+                      <input type="button" class="btn btn-large" ng-click="show_signup()" value="Create Account">
+                    </center>
+                  </div>
+                  <div ng-show="showSignupWindow" class="expand-ext">
+                    <i class="material-icons close-ext" ng-click="close_ext()">close</i>
+                    <h3>Sign Up</h3>
+                    <center>
+                      <h4 ng-show="showFailMessage" style="color:red">Your username conflicts with an existing user. Please choose a different one.</h4>
+                      <h4>Name</h4><input id="name" type="text">
+                      </br>
+                      <h4>Username</h4><input id="username" type="text">
+                      </br>
+                      <h4>Password</h4><input id="password" type="password">
+                      </br>
+                      <input type="button" class="btn btn-large" ng-click="signup()" value="Confirm!">
+                      <input type="button" class="btn btn-large" ng-click="login()" value="Use Existing Account">
+                    </center>
+                  </div>
+                </div>
+                {% endraw %}
+              </nav>
+            </div>
+          </div>
+
+          <!-- Content of slide -->
+          <div class="inner cover">
+            <form action="cases" style="margin-top:30px" method="post">
+              <input type="text" class="search-box col-sm-9" name="query" placeholder="Enter a term to focus your summary!">
+                <span class="search-suggest">press <b>ENTER</b> to search</span></br>
+            </form>
+            <div style="display: {{popup}}">
+              You searched for: <b>{{query}}</b>
+            </div>
+            <form action="cases" style = "margin-top:30px" method="post">
+              <input type="text" class="email-box col-sm-9" name="email" placeholder="Enter your email address to receive your summary!">
+                <span class="email-suggest">press <b>ENTER</b> to submit</span></br>
+            </form>
+            <br>
+            <form id="dropzone" action="/upload-target" class="dropzone black-text"></form>
+            <br>
+            <input type="button" class="btn btn-large" onclick="toggle_briefing()" value="Load Briefing">
+            <input type="button" class="btn btn-large" onclick="download()" value="Download Briefing">
+            <br>
+
+            <div class="output-frame">
+              <p id="output" style="display:none"></p>
+            </div>
+            <div class="ext-div">
+              <h4>Extensions</h4>
+              {{extensions|safe}}
+              <input type="button" onclick="window.open('market')" class="btn btn-large" value="+">
+            </div>
+            <div id="extensionFrame" class="extension-frame">
+              <p id="extensionFrameTitle" class="extension-frame-title"></p>
+              <i class="material-icons extension-close" onclick="document.getElementById('extensionFrame').style.display='none';">clear</i>
+            </div>
+          </div>
+
+          <!-- Footer with links to author GitHubs and other source information -->
+          <div class="mastfoot">
+            <div class="inner" style="padding-bottom:2.5%">
+              <p>legal advice web services |
+                <a href="https://devpost.com/software/less-is-more-fdztjn">law --less</a> | by
+                <a href="https://github.com/warut-vijit">Warut</a>,
+                <a href="https://github.com/cabosanlucas">Kabir</a>,
+                <a href="https://github.com/NAN1248">Nathan</a>,
+                <a href="https://github.com/Chiranth7954">Chiranth</a>,
+                <a href="https://github.com/nriaziat">Naveed</a>,
+                <a href="https://github.com/owenli10">Owen</a></p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

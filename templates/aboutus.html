@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="legal advice web services for pro-bono cases">
+    <meta name="author" content="Warut, Kabir, Nathan, Chiranth, Naveed, Owen">
+
+    <title>law --less</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{url_for('static', filename='css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='css/cover.css')}}" rel="stylesheet">
+
+    <!-- CDN for AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- Custom Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- Just for debugging purposes -->
+    <script src="{{url_for('static', filename='scripts/ie-emulation-modes-warning.js')}}"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='scripts/bootstrap.min.js')}}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{url_for('static', filename='scripts/ie10-viewport-bug-workaround.js')}}"></script>
+
+    <script src="{{url_for('static', filename='scripts/login.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+
+  </head>
+
+  <body style="font-family: 'Roboto', sans-serif" background="{{url_for('static', filename='icons/background.png')}}">
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <a href="/">
+                <img src="{{url_for('static', filename='icons/logo.png')}}" width="40%" height="20%" alt="LL" id="logo">
+              </a>
+
+              <!-- Navigation toolbar for insite navigation -->
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li><a href="/">Home</a></li>
+                  <li><a href="cases">Cases</a></li>
+                  <li><a href="features">Features</a></li>
+                  <li><a href="profile">User Profile</a></li>
+                  <li class="active"><a href="#">About Us</a></li>
+                  <li><a href="sponsors">Sponsors</a></li>
+                </ul>
+                {% raw %}
+                <div style="position:absolute;top:90px;right:-50px;list-style-type:none;" ng-app="loginApp" ng-controller="loginCtrl">
+                  <div ng-hide="loginActive">
+                    <input type="button" class="btn btn-large" value="Log In" ng-click="login()">
+                    <input type="button" class="btn btn-large" value="Sign Up" ng-click="show_signup()">
+                  </div>
+                  <div ng-hide="!loginActive">
+                    <h6>Welcome, {{user.name}}
+                  </div>
+                  <div ng-show="showLoginWindow || showSignupWindow" class="blanket-ext"></div>
+                  <div ng-show="showLoginWindow" class="expand-ext">
+                    <i class="material-icons close-ext" ng-click="close_ext()">close</i>
+                    <h3>Log In</h3>
+                    <center>
+                      <h4 ng-show="showFailMessage" style="color:red">Your username or password is incorrect. Please try again.</h4>
+                      <h4>Username</h4><input id="username" type="text">
+                      </br>
+                      <h4>Password</h4><input id="password" type="password">
+                      </br>
+                      <input type="button" class="btn btn-large" ng-click="verify()" value="Confirm!">
+                      <input type="button" class="btn btn-large" ng-click="show_signup()" value="Create Account">
+                    </center>
+                  </div>
+                  <div ng-show="showSignupWindow" class="expand-ext">
+                    <i class="material-icons close-ext" ng-click="close_ext()">close</i>
+                    <h3>Sign Up</h3>
+                    <center>
+                      <h4 ng-show="showFailMessage" style="color:red">Your username conflicts with an existing user. Please choose a different one.</h4>
+                      <h4>Name</h4><input id="name" type="text">
+                      </br>
+                      <h4>Username</h4><input id="username" type="text">
+                      </br>
+                      <h4>Password</h4><input id="password" type="password">
+                      </br>
+                      <input type="button" class="btn btn-large" ng-click="signup()" value="Confirm!">
+                      <input type="button" class="btn btn-large" ng-click="login()" value="Use Existing Account">
+                    </center>
+                  </div>
+                </div>
+                {% endraw %}
+              </nav>
+
+            </div>
+          </div>
+
+          <!-- Content of slide -->
+          <div class="inner cover">
+            <div id="team-title">
+              <h3>Meet Our Interdisciplinary Team</h3>
+            </div>
+
+            <div id ="about-images">
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <a href="https://github.com/Chiranth7954">
+                <img src="{{url_for('static', filename='icons/Chiranth.jpg')}}" class="img-responsive img-circle" style:"width:100%;height:20px;" alt="Chiranth Kishore"></a>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <a href="https://github.com/cabosanlucas">
+                <img src="{{url_for('static', filename='icons/Kabir.jpg')}}" class="img-responsive img-circle" style:"width:100%" alt="Kabir Manghnani"></a>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <a href="https://github.com/nriaziat">
+                <img src="{{url_for('static', filename='icons/Naveed.jpg')}}" class="img-responsive img-circle" style:"width:100%" alt="Naveed Riaziat"></a>
+              </div>
+
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <br><h5><b>Chiranth Kishore</b><br><i>Purdue University</i><br><small>Mechanical Engineering</small></h5>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <br><h5><b>Kabir Manghnani</b><br><i>University of Illinois</i><br><small>Computer Science</small></h5>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <br><h5><b>Naveed Riaziat</b><br><i>Purdue University</i><br><small>Mechanical Engineering</small></h5>
+              </div>
+
+              <!-- Filler space between rows -->
+              <div class="col-xs-11 col-xs-offset-1 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-lg-11 col-lg-offset-1" style="background-color-color:0,0,0,1;">
+                <br>
+              </div>
+
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <a href="https://github.com/NAN1248">
+                <img src="{{url_for('static', filename='icons/Nathan.jpg')}}" class="img-responsive img-circle" style:"width:100%;height:20px;" alt="Nathan Narasimhan"></a>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <a href="https://github.com/owenli10">
+                <img src="{{url_for('static', filename='icons/Owen.jpg')}}" class="img-responsive img-circle" style:"width:100%" alt="Owen Li"></a>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <a href="https://github.com/warut-vijit">
+                <img src="{{url_for('static', filename='icons/Warut.jpg')}}" class="img-responsive img-circle" style:"width:100%" alt="Warut Vijit"></a>
+              </div>
+
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <br><h5><b>Nathan Narasimhan</b><br><i>University of Illinois</i><br><small>Computer Engineering</small></h5>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <br><h5><b>Owen Li</b><br><i>Purdue University</i><br><small>Mechanical Engineering</small></h5>
+              </div>
+              <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-3 col-lg-offset-1">
+                <br><h5><b>Warut Vijit</b><br><i>University of Illinois</i><br><small>Computer Engineering</small></h5>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer with links to author GitHubs and other source information -->
+          <div class="mastfoot">
+            <div class="inner" style="padding-bottom:2.5%">
+              <p>legal advice web services |
+                <a href="https://devpost.com/software/less-is-more-fdztjn">law --less</a> | by
+                <a href="https://github.com/warut-vijit">Warut</a>,
+                <a href="https://github.com/cabosanlucas">Kabir</a>,
+                <a href="https://github.com/NAN1248">Nathan</a>,
+                <a href="https://github.com/Chiranth7954">Chiranth</a>,
+                <a href="https://github.com/nriaziat">Naveed</a>,
+                <a href="https://github.com/owenli10">Owen</a>
+            </div>
+        </div>
+
+      </div>
+
+    </div>
+  </body>
+</html>
